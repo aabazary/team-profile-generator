@@ -5,116 +5,195 @@ const Manager = require('./lib/manager');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const addManager = () => {
-    inquirer
-        .prompt([{
-                type: 'list',
-                message: 'Select Manadatory Role',
-                name: 'role',
-                choices:['Manager']
-            },
-            {
-                type: 'input',
-                message: 'What is the NAME of the Manager?',
-                name: 'name',
-            
-            },
-            {
-                type: 'input',
-                message: 'What is the ID of the Manager',
-                name: 'id',
-            },
-            {
-                type: 'input',
-                message: 'What is the EMAIL of the Mananger',
-                name: 'email',
-            },
-            {
-                type: 'input',
-                message: 'What is the OFFICE NUMBER of the Mananger',
-                name: 'officeNumber',
-            },
-            {
-                type: 'list',
-                message: 'What team member would you like to add next?',
-                choices: ['Engineer', 'Intern', 'None'],
-                name: 'nextChoice'
-            }
-        ])
-        .then((data => {
-            const pageContent = generatePage(data);
+teamArray = [];
 
-            fs.writeFile('./index.html', pageContent, (err) =>
-                err ? console.log(err) : console.log('Successfully Created Team'))
-        }));
+const addManager = () => {
+ return inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is the NAME of the Manager?',
+        name: 'name',
+      },
+      {
+        type: 'input',
+        message: 'What is the ID of the Manager',
+        name: 'id',
+      },
+      {
+        type: 'input',
+        message: 'What is the EMAIL of the Mananger',
+        name: 'email',
+      },
+      {
+        type: 'input',
+        message: 'What is the OFFICE NUMBER of the Mananger',
+        name: 'officeNumber',
+      },
+    ])
+    .then((data => {
+      data.role = 'Manager'
+      const manager = new Manager(data.name, data.id, data.email, data.officeNumber);
+      teamArray.push(manager);
+      console.log(teamArray)
+      addEmployee();
+    }));
+}
+const addEmployee = () => {
+  return inquirer.prompt([{
+      type: 'list',
+      message: 'What team member would you like to add next?',
+      choices: ['Engineer', 'Intern', 'None'],
+      name: 'employee'
+    }])
+    .then(data => {
+      if (data.employee=== 'Engineer') {
+        addEngineer();
+      } else if (data.employee === 'Intern') {
+        addIntern();
+      } else {
+        return teamArray;
+      }
+    })
 }
 
 
+const addEngineer = () => {
+  return inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is the NAME of the Engineer?',
+        name: 'name',
 
-const generatePage = (data) =>
-    `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <title></title>
-</head>
-<body>
-    <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="bg-gray-900">
-  <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
-    <div class="space-y-12">
-      <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
-        <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Meet our team</h2>
-        <p class="text-xl text-gray-300">Ornare sagittis, suspendisse in hendrerit quis. Sed dui aliquet lectus sit pretium egestas vel mattis neque.</p>
-      </div>
-      <ul class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
-      <li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
-<div class="space-y-6 xl:space-y-10">
-  <img class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="./images/${data.role}.png" alt="">
-  <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
-    <div class="font-medium text-lg leading-6 space-y-1">
-      <h3 class="text-white">${data.name}(ID:${data.id})</h3>
-      <p class="text-indigo-400">${data.role}</p>
-      <p class="text-white">${data.officeNumber}</p>
-    </div>
+      },
+      {
+        type: 'input',
+        message: 'What is the ID of the Engineer',
+        name: 'id',
+      },
+      {
+        type: 'input',
+        message: 'What is the EMAIL of the Engineer',
+        name: 'email',
+      },
+      {
+        type: 'input',
+        message: 'What is the GITHUB USERNAME of the Engineer',
+        name: 'github',
+      },
+    ])
+    .then((data => {
+      data.role = 'Engineer'
+      const engineer = new Engineer(data.name, data.id, data.email, data.github);
+      teamArray.push(engineer);
+      console.log(teamArray)
+      addEmployee();
+    }));
+}
 
-    <ul class="flex justify-center space-x-5">
-    <li>
-    <a href='mailto:${data.email}'
-    class="text-gray-400 hover:text-gray-300">
-      <span class="sr-only">Mail</span>
-      <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    </a>
-    </li>
-    </ul>
-  </div>
-</div>
-</li>     
-      <!-- People Go Here -->
-        
-      </ul>
-    </div>
-  </div>
-</div>
+const addIntern = () => {
+  return inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is the NAME of the Intern?',
+        name: 'name',
+
+      },
+      {
+        type: 'input',
+        message: 'What is the ID of the Intern',
+        name: 'id',
+      },
+      {
+        type: 'input',
+        message: 'What is the EMAIL of the Intern',
+        name: 'email',
+      },
+      {
+        type: 'input',
+        message: 'What is the School of the Intern',
+        name: 'school',
+      },
+    ])
+    .then((data => {
+      data.role = 'Intern'
+      const intern = new Intern(data.name, data.id, data.email, data.school);
+      teamArray.push(intern);
+      console.log(teamArray)
+      addEmployee();
+    }));
+}
+addManager()
+
+// const generatePage = (teamArray) => {
+//   const pageContent = htmlTemplate(teamArray);
+
+//   fs.writeFile('./index.html', pageContent, (err) =>
+//     err ? console.log(err) : console.log('Successfully Created Team'))
+// }
+
+// const htmlTemplate = (data) =>
+//   `
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+//     <title></title>
+// </head>
+// <body>
+//     <!-- This example requires Tailwind CSS v2.0+ -->
+// <div class="bg-gray-900">
+//   <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
+//     <div class="space-y-12">
+//       <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+//         <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Meet our team</h2>
+//         <p class="text-xl text-gray-300">Ornare sagittis, suspendisse in hendrerit quis. Sed dui aliquet lectus sit pretium egestas vel mattis neque.</p>
+//       </div>
+//       <ul class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
+//       <li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
+// <div class="space-y-6 xl:space-y-10">
+//   <img class="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="./images/${data.role}.png" alt="">
+//   <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
+//     <div class="font-medium text-lg leading-6 space-y-1">
+//       <h3 class="text-white">${data.name}(ID:${data.id})</h3>
+//       <p class="text-indigo-400">${data.role}</p>
+//       <p class="text-white">${data.officeNumber}</p>
+//     </div>
+
+//     <ul class="flex justify-center space-x-5">
+//     <li>
+//     <a href='mailto:${data.email}'
+//     class="text-gray-400 hover:text-gray-300">
+//       <span class="sr-only">Mail</span>
+//       <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+//         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+//       </svg>
+//     </a>
+//     </li>
+//     </ul>
+//   </div>
+// </div>
+// </li>     
+//       <!-- People Go Here -->
+//         ${teamArray}
+//       </ul>
+//     </div>
+//   </div>
+// </div>
 
   
-</body>
-<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-</html>`
+// </body>
+// <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+// </html>
+// `
 
 
 
 
 
-addManager(
 
-)
 
 
 // <a href="#" class="text-gray-400 hover:text-gray-300">
