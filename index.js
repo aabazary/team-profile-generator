@@ -17,17 +17,17 @@ const addManager = () => {
       },
       {
         type: 'input',
-        message: 'What is the ID of the Manager',
+        message: 'What is the ID of the Manager?',
         name: 'id',
       },
       {
         type: 'input',
-        message: 'What is the EMAIL of the Mananger',
+        message: 'What is the EMAIL of the Mananger?',
         name: 'email',
       },
       {
         type: 'input',
-        message: 'What is the OFFICE NUMBER of the Mananger',
+        message: 'What is the OFFICE NUMBER of the Mananger?',
         name: 'officeNumber',
       },
     ])
@@ -53,7 +53,9 @@ const addEmployee = () => {
         addIntern();
       } else {
         console.log('asdfasd', teamArray)
-        return teamArray;
+        // assistance from ask BCS 
+        var pageString = generateTeam(teamArray);
+        generatePage(pageString)
       }
     })
 }
@@ -69,17 +71,17 @@ const addEngineer = () => {
       },
       {
         type: 'input',
-        message: 'What is the ID of the Engineer',
+        message: 'What is the ID of the Engineer?',
         name: 'id',
       },
       {
         type: 'input',
-        message: 'What is the EMAIL of the Engineer',
+        message: 'What is the EMAIL of the Engineer?',
         name: 'email',
       },
       {
         type: 'input',
-        message: 'What is the GITHUB USERNAME of the Engineer',
+        message: 'What is the GITHUB USERNAME of the Engineer?',
         name: 'github',
       },
     ])
@@ -102,17 +104,17 @@ const addIntern = () => {
       },
       {
         type: 'input',
-        message: 'What is the ID of the Intern',
+        message: 'What is the ID of the Intern?',
         name: 'id',
       },
       {
         type: 'input',
-        message: 'What is the EMAIL of the Intern',
+        message: 'What is the EMAIL of the Intern?',
         name: 'email',
       },
       {
         type: 'input',
-        message: 'What is the School of the Intern',
+        message: 'What is the School of the Intern?',
         name: 'school',
       },
     ])
@@ -125,23 +127,14 @@ const addIntern = () => {
     }));
 }
 
-const generatePage = (data) => {
+const generatePage = (pageString) => {
 
-  fs.writeFile('./index.html', data, (err) =>
+  fs.writeFile('./index.html', pageString, (err) =>
     err ? console.log(err) : console.log('Successfully Created Team'))
 }
 
 
 
 addManager()
-  .then(teamArray => {
-    console.log('test',teamArray)
-    return generateTeamPage(teamArray);
-  })
-  .then(data =>{
-     return generatePage(data);
-  })
-  .catch(err => {
-    console.log(err);
-  })
+
 
