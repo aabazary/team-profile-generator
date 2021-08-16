@@ -1,3 +1,4 @@
+//template for manager card
 const managerCard = (Manager) =>
   `<li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
 <div class="space-y-6 xl:space-y-10">
@@ -23,6 +24,7 @@ const managerCard = (Manager) =>
 </div>
 </li> `
 
+//template for engineer card
 const engineerCard = (Engineer) =>
   `<li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
 <div class="space-y-6 xl:space-y-10">
@@ -54,7 +56,7 @@ const engineerCard = (Engineer) =>
   </div>
 </div>
 </li> `
-
+//template for intern card
 const internCard = (Intern) =>
   `<li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
 <div class="space-y-6 xl:space-y-10">
@@ -79,32 +81,7 @@ const internCard = (Intern) =>
   </div>
 </div>
 </li> `
-
-generateTeam = (teamArray) => {
-  console.log(teamArray)
-
-  cardsArray = [];
-
-  for (let i = 0; i < teamArray.length; i++) {
-    const employee = teamArray[i];
-    const role = employee.getRole();
-
-    if (role === 'Manager') {
-      const managerHtml = managerCard(employee);
-      cardsArray.push(managerHtml);
-    } else if (role === 'Engineer') {
-      const engineerHtml = engineerCard(employee);
-      cardsArray.push(engineerHtml);
-    } else if (role === 'Intern') {
-      const internHtml = internCard(employee);
-      cardsArray.push(internHtml);
-    }
-  }
-  const teamCards = cardsArray.join('');
-  const createPage = htmlTemplate(teamCards);
-  return createPage;
-};
-
+//template for html page
 const htmlTemplate = (teamCards) =>
   `
 <!DOCTYPE html>
@@ -153,8 +130,6 @@ const htmlTemplate = (teamCards) =>
           clip-rule="evenodd" />
       </svg>
     </a>
-
-      </a>
     </div>
     <div class="mt-8 md:mt-0 md:order-1">
       <p class="text-center text-base text-gray-400">
@@ -168,7 +143,29 @@ const htmlTemplate = (teamCards) =>
 </html>
 `
 
+generateTeam = (teamArray) => {
+  console.log(teamArray)
 
+  cardsArray = [];
 
+  for (let i = 0; i < teamArray.length; i++) {
+    const employee = teamArray[i];
+    const role = employee.getRole();
+
+    if (role === 'Manager') {
+      const managerHtml = managerCard(employee);
+      cardsArray.push(managerHtml);
+    } else if (role === 'Engineer') {
+      const engineerHtml = engineerCard(employee);
+      cardsArray.push(engineerHtml);
+    } else if (role === 'Intern') {
+      const internHtml = internCard(employee);
+      cardsArray.push(internHtml);
+    }
+  }
+  const teamCards = cardsArray.join('');
+  const createPage = htmlTemplate(teamCards);
+  return createPage;
+};
 
 module.exports = generateTeam;
