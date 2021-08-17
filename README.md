@@ -9,7 +9,7 @@ An app that allows you to create an HTML page based on user input in the integra
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
-- [Contributions](#how)
+- [Contributions](#contributions)
 - [Test](#test)
 - [Questions](#questions)
 
@@ -38,7 +38,7 @@ Example of the page created with the application:
 ![ss](./images/pageSS.png)
 ## <ins>License</ins>
 This project is covered under MIT License
-## <ins>How to Contribute
+## <ins>Contributions</ins>
 Feel free to fork and use at will!
 ## <ins>Tests</ins>
 Type "npm test" in the integrated terminal for a list of tests
