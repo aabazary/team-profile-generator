@@ -49,7 +49,7 @@ const addEmployee = () => {
   return inquirer.prompt([{
       type: 'list',
       message: 'What team member would you like to add next?',
-      choices: ['Engineer', 'Intern', 'None'],
+      choices: ['Engineer', 'Intern', 'None(Team Complete)'],
       name: 'employee'
     }])
     //choice allows the running of addEngineer, addIntern or to complete the app

@@ -144,8 +144,6 @@ const htmlTemplate = (teamCards) =>
 `
 
 generateTeam = (teamArray) => {
-  console.log(teamArray)
-
   cardsArray = [];
 
   for (let i = 0; i < teamArray.length; i++) {
