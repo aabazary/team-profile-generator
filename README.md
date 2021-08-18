@@ -18,7 +18,7 @@ Open the integrated terminal on the index.js file
 
 ![Integrated Terminal](./images/openIntegrated.png)
 
-Type "npm i" in the integrated terminal(if all the files do not install, attempt it again)
+Type `npm i` in the integrated terminal(if all the files do not install, attempt it again)
 
 ![npm I](./images/npmI.png)
 
