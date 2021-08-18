@@ -41,7 +41,7 @@ This project is covered under MIT License
 ## <ins>Contributions</ins>
 Feel free to fork and use at will!
 ## <ins>Tests</ins>
-Type "npm test" in the integrated terminal for a list of tests
+Type `npm test` in the integrated terminal for a list of tests
 
 ![npm Test](./images/npmTest.png)
 
