@@ -36,6 +36,9 @@ Example inputing data:
 Example of the page created with the application:
 
 ![ss](./images/pageSS.png)
+
+Link to deployed Example:
+https://aabazary.github.io/team-profile-generator/
 ## <ins>License</ins>
 This project is covered under MIT License
 ## <ins>Contributions</ins>
